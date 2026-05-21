@@ -1,0 +1,18 @@
+services:
+  grc-rcm-gate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${RCM_GATE_PORT:-8000}:8000"
+    environment:
+      - PORT=8000
+      - RELOAD=false
+      - GRC_ADMIN_SECRET_KEY=${GRC_ADMIN_SECRET_KEY:-changeme}
+      - DATABASE_PATH=/app/data/gate.db
+    volumes:
+      - rcm_gate_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  rcm_gate_data:
