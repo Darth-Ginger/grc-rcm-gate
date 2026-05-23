@@ -5,6 +5,7 @@ from datetime import datetime
 
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.security import APIKeyHeader
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 from src.core.database import get_db, init_db
@@ -25,9 +26,11 @@ _admin_key_header = APIKeyHeader(name="X-Admin-Token", auto_error=False)
 
 
 def _require_admin(token: str | None = Depends(_admin_key_header)) -> None:
+    if token is None:
+        raise HTTPException(status_code=401, detail="Missing admin token")
     secret = os.getenv("GRC_ADMIN_SECRET_KEY", "")
     if not secret or token != secret:
-        raise HTTPException(status_code=401, detail="Invalid admin token")
+        raise HTTPException(status_code=403, detail="Invalid admin token")
 
 
 @asynccontextmanager
@@ -146,3 +149,10 @@ def list_audit(
 @app.get("/api/v1/gate/audit/{gate_event_id}", response_model=GateEventResponse)
 def get_audit_event(gate_event_id: str, db: Session = Depends(get_db)):
     return audit_log.get_event(gate_event_id, db)
+
+
+# ---------------------------------------------------------------------------
+# Webapp
+# ---------------------------------------------------------------------------
+
+app.mount("/", StaticFiles(directory="webapp", html=True), name="webapp")
