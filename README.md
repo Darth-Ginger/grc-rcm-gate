@@ -17,7 +17,7 @@ All other pipeline services are stateless. This service is the explicit stateful
 Every evaluation produces one of three tiers:
 
 | Tier | Code | Description |
-|---|---|---|
+| --- | --- | --- |
 | Auto-Proceed | `AUTO_PROCEED` | Record proceeds without human action. Event is still recorded. |
 | One-Touch | `ONE_TOUCH` | Pre-populated decision requiring single human confirm/reject. |
 | Hard Review | `HARD_REVIEW` | Full human review required before record may proceed. |
@@ -48,7 +48,7 @@ docker compose up -d --build grc-rcm-gate
 ## Environment Variables
 
 | Variable | Default | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `GRC_ADMIN_SECRET_KEY` | — | Required for `X-Admin-Token` on write endpoints |
 | `DATABASE_PATH` | `/app/data/gate.db` | SQLite database path |
 | `PORT` | `8000` | Internal listen port |
