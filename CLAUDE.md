@@ -1,3 +1,8 @@
+---
+paths:
+    - "grc-rcm-gate/"
+---
+
 # CLAUDE.md — grc-rcm-gate
 
 ## Statefulness Exception
