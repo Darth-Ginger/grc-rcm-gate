@@ -8,6 +8,7 @@ RUN pip install uv
 WORKDIR /app
 
 COPY pyproject.toml uv.lock README.md ./
+COPY grc-shared-lib ./grc-shared-lib
 RUN uv sync --frozen --no-dev
 
 COPY src ./src

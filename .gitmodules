@@ -1,0 +1,3 @@
+[submodule "grc-shared-lib"]
+	path = grc-shared-lib
+	url = https://github.com/Darth-Ginger/grc-shared-lib.git
